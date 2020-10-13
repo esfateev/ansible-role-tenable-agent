@@ -1,0 +1,6 @@
+---
+
+- name: restart nessusagent
+  service: name=nessusagent state=restarted
+  become: yes
+  when: nessus_manage

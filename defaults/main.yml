@@ -1,0 +1,28 @@
+---
+
+# required variable
+#nessus_agent_key: ''
+#nessus_agent_group: ''
+
+# can be either a repository package or a path to a file
+#     nessus_agent_package: nessus-agent
+#     nessus_agent_package: /tmp/nessus-agent_6.8.1_amd64.deb
+nessus_agent_package: 'NessusAgent'
+
+nessus_agent_host: cloud.tenable.com
+nessus_agent_port: 443
+nessus_agent_group: 'RTRX-CORE'
+nessus_manage: True
+nessus_install: True
+
+nessus_install_dir: /opt/nessus_agent
+nessus_cli_cmd: "{{ nessus_install_dir }}/sbin/nessuscli"
+nessus_agent_check_cmd:  "{{ nessus_cli_cmd }} agent status"
+
+nessus_agent_link_cmd: >
+  {{ nessus_cli_cmd }} agent link
+    --key={{ nessus_agent_key }}
+    --host={{nessus_agent_host}}
+    --port={{nessus_agent_port}}
+    --groups="{{ nessus_agent_group }}"
+    --name={{ansible_hostname}}

@@ -1,0 +1,43 @@
+---
+- block:
+  # Install RedHat-like
+  - include: RedHat.yml
+    when: ansible_os_family == 'RedHat'
+  
+  # Install Debian-like
+  - include: Debian.yml
+    when: ansible_os_family == 'Debian'
+  when: nessus_install
+
+- block:
+  - name: Check for Nessus installation
+    stat:
+      path: "{{ nessus_install_dir }}"
+    register: stat_result
+
+  - name: Check Nessus Agent
+    command: "{{ nessus_agent_check_cmd }}"
+    become: yes
+    changed_when: false
+    ignore_errors: yes
+    register: check_result
+
+  - name: Start Nessus Agent
+    service:
+      name: nessusagent
+      state: started
+      enabled: yes
+    become: yes
+    when: check_result.stdout is search('Not linked to')
+
+  - name: Check Nessus service status
+    command: systemctl status nessusagent
+    changed_when: false
+    ignore_errors: yes
+    register: nessus_agent_status
+
+  - name: Link Nessus Agent to Nessus Manager
+    command: "{{ nessus_agent_link_cmd }}"
+    become: yes
+    when: check_result.stdout is search('Not linked to')
+  when: nessus_manage
