@@ -1,4 +1,4 @@
-## ansible-role-tennable-agent
+## ansible-role-tenable-agent
 =========
 
 Ansible role for installing and configuring Nessus Agent

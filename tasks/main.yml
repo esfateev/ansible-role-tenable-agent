@@ -1,10 +1,10 @@
 ---
 - block:
-  # Install RedHat-like
+  # Install Nessus agent for RedHat OS
   - include: RedHat.yml
     when: ansible_os_family == 'RedHat'
   
-  # Install Debian-like
+  # Install Nessus agent for Debian OS
   - include: Debian.yml
     when: ansible_os_family == 'Debian'
   when: nessus_install
@@ -30,8 +30,10 @@
     become: yes
     when: check_result.stdout is search('Not linked to')
 
-  - name: Check Nessus service status
-    command: systemctl status nessusagent
+  - name: Make sure a service is running
+    systemd:
+      state: started
+      name: httpd
     changed_when: false
     ignore_errors: yes
     register: nessus_agent_status
