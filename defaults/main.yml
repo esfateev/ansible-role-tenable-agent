@@ -1,19 +1,46 @@
 ---
-# Can be either a repository package or a path to a file
+# required variable
+#nessus_agent_key: ''
+#nessus_agent_group: ''
+
+#####
+# Edit variable nessus_agent_install_method to choose type of installation way:
+#  "local" - install from local package file;
+#  "repo" - package from Linux Repository;
+#  "url" - install from Web URL with checksum verification;
+# By default, url method is defined.
+nessus_agent_install_method: url
+# can be either a repository package or a path to a file
 #     nessus_agent_package: nessus-agent
 #     nessus_agent_package: /tmp/nessus-agent_6.8.1_amd64.deb
 nessus_agent_package: 'NessusAgent'
+# The Agent version
+nessus_agent_version: "7.0.3"
+# The Agent download file checksum (md5)
+nessus_agent_file_checksum: "md5:ebcfd859fecdfsadf95bc9b35c056bed57"
+# The download URL for the Agent
+nessus_agent_download_url: "https://transfer.sh/12rlRj/NessusAgent-7.0.3-ubuntu1110_i386.deb"
+# The temporary working dir
+nessus_agent_temp_dir: "/tmp"
+# Destination Agent host url
 nessus_agent_host: cloud.tenable.com
-nessus_agent_port: 443
-nessus_agent_group: 'Default'
-nessus_manage: True
-nessus_install: True
+# Destination Agent host port
+nessus_agent_port: '443'
+# Agent Linking Key
 nessus_agent_key: ''
-
+# The agent group, it could be "Group1, Group2, Group3,..."
+nessus_agent_group: 'Default'
+# Deprecated
+nessus_manage: True
+# Deprecated
+nessus_install: True
+# Installation directory for Nessus Agent
 nessus_install_dir: /opt/nessus_agent
+# CLI command
 nessus_cli_cmd: "{{ nessus_install_dir }}/sbin/nessuscli"
+# Status Check command
 nessus_agent_check_cmd:  "{{ nessus_cli_cmd }} agent status"
-
+# Link agent to Tenable manager command
 nessus_agent_link_cmd: >
   {{ nessus_cli_cmd }} agent link
     --key={{ nessus_agent_key }}
