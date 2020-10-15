@@ -1,5 +1,5 @@
 # Installation directory for Nessus Agent
-nessus_install_dir: /opt/nessus_agent
+nessus_install_dir: "/opt/nessus_agent"
 # CLI command
 nessus_cli_cmd: "{{ nessus_install_dir }}/sbin/nessuscli"
 # Status Check command
