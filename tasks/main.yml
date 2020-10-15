@@ -1,4 +1,11 @@
 ---
+- name: Check if package is installed
+  package:
+    name: nessusagent
+    state: present
+  check_mode: true
+  register: package_check
+
 - block:
   # Install Nessus agent for RedHat OS
   - include: RedHat.yml
@@ -7,7 +14,7 @@
   # Install Nessus agent for Debian OS
   - include: Debian.yml
     when: ansible_os_family == 'Debian'
-  when: nessus_install
+  when: package_check.changed
 
 - block:
   - name: Check for Nessus installation
@@ -22,18 +29,10 @@
     ignore_errors: yes
     register: check_result
 
-  - name: Start Nessus Agent
-    service:
-      name: nessusagent
-      state: started
-      enabled: yes
-    become: yes
-    when: check_result.stdout is search('Not linked to')
-
   - name: Make sure a service is running
     systemd:
       state: started
-      name: httpd
+      name: "{{ nessus_agent_service_name }}"
     changed_when: false
     ignore_errors: yes
     register: nessus_agent_status

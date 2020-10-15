@@ -1,6 +1,6 @@
 ---
 
-- name: restart nessusagent
-  service: name=nessusagent state=restarted
+- name: restart {{ nessus_agent_service_name }}
+  service: name={{ nessus_agent_service_name }} state=restarted
   become: yes
   when: nessus_manage

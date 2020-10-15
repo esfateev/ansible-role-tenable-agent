@@ -1,7 +1,7 @@
 ---
-# required variable
-#nessus_agent_key: ''
-#nessus_agent_group: ''
+# Required variables to apply this role:
+# nessus_agent_key: ''
+# nessus_agent_group: ''
 
 #####
 # Edit variable nessus_agent_install_method to choose type of installation way:
@@ -34,17 +34,3 @@ nessus_agent_group: 'Default'
 nessus_manage: True
 # Deprecated
 nessus_install: True
-# Installation directory for Nessus Agent
-nessus_install_dir: /opt/nessus_agent
-# CLI command
-nessus_cli_cmd: "{{ nessus_install_dir }}/sbin/nessuscli"
-# Status Check command
-nessus_agent_check_cmd:  "{{ nessus_cli_cmd }} agent status"
-# Link agent to Tenable manager command
-nessus_agent_link_cmd: >
-  {{ nessus_cli_cmd }} agent link
-    --key={{ nessus_agent_key }}
-    --host={{nessus_agent_host}}
-    --port={{nessus_agent_port}}
-    --groups="{{ nessus_agent_group }}"
-    --name={{ansible_hostname}}
