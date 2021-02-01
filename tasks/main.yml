@@ -1,20 +1,7 @@
 ---
-- name: Check if package is installed
-  package:
-    name: nessusagent
-    state: present
-  check_mode: true
-  register: package_check
 
-- block:
-  # Install Nessus agent for RedHat OS
-  - include: RedHat.yml
-    when: ansible_os_family == 'RedHat'
-  
-  # Install Nessus agent for Debian OS
-  - include: Debian.yml
-    when: ansible_os_family == 'Debian'
-  when: package_check.changed
+# Setup/install tasks.
+- include_tasks: "setup-{{ ansible_os_family }}.yml"
 
 - block:
   - name: Check for Nessus installation
@@ -42,3 +29,22 @@
     become: yes
     when: check_result.stdout is search('Not linked to')
   when: nessus_manage
+
+################
+
+#- name: Check if package is installed
+#  package:
+#    name: nessusagent
+#    state: present
+#  check_mode: true
+#  register: package_check
+#
+#- block:
+#  # Install Nessus agent for RedHat OS and CentOS
+#  - include: setup-redhat.yml
+#    when: (ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "RedHat")
+#
+#  # Install Nessus agent for Debian OS
+#  - include: setup-debian.yml
+#    when: ansible_os_family == 'Debian'
+#  when: package_check.changed

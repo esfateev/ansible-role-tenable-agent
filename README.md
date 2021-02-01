@@ -1,6 +1,7 @@
 ## ansible-role-tenable-agent
 =========
 
+*NOTES*: For now just a dirty fork some work todo   
 Ansible role for installing and configuring Nessus Agent
 
 Role Variables
@@ -28,3 +29,10 @@ Example Playbook
          - role: ansible-role-nessus-agent
            nessus_agent_key: xxxxxxxxx
            tags: nessus-agent
+
+TODOs
+--------------
+- Fixup
+- Tests
+- CI
+- Release Pipeline
