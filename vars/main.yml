@@ -1,9 +1,10 @@
+---
 # Installation directory for Nessus Agent
 nessus_install_dir: "/opt/nessus_agent"
 # CLI command
 nessus_cli_cmd: "{{ nessus_install_dir }}/sbin/nessuscli"
 # Status Check command
-nessus_agent_check_cmd:  "{{ nessus_cli_cmd }} agent status"
+nessus_agent_check_cmd: "{{ nessus_cli_cmd }} agent status"
 # Link agent to Tenable manager command
 nessus_agent_link_cmd: >
   {{ nessus_cli_cmd }} agent link
