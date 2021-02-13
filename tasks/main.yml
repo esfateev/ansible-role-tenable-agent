@@ -8,7 +8,7 @@
     src: nessusd.rules.j2
     dest: "{{ nessus_install_dir }}/etc/nessus/nessusd.rules"
     mode: 0644
-  when: rules | length > 0
+  when: nessus_agent_rules | length > 0
 
 # Check agent and start service
 - name: Check for Nessus installation
@@ -29,6 +29,6 @@
     name: "{{ nessus_agent_service_name }}"
 
 - name: Link Nessus Agent to Nessus Manager
-  command: "{{ nessus_agent_path }} agent link --host={{ nessus_agent_host }} --port={{ nessus_agent_port }} --key={{ nessus_agent_key }}"
+  command: "{{ nessus_agent_path }} agent link --host={{ nessus_agent_host }} --port={{ nessus_agent_port }} --key={{ nessus_agent_key }} --groups={{ nessus_agent_group }}"
   become: yes
   when: check_result.stdout is search('Not linked to') and nessus_agent_key | length > 0

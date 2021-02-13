@@ -33,4 +33,4 @@ nessus_agent_group: 'Default'
 # tbd
 nessus_install_dir: /opt/nessus_agent/
 nessus_agent_path: /opt/nessus_agent/sbin/nessuscli
-rules: {}
+nessus_agent_rules: {}
