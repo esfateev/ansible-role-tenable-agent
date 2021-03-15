@@ -6,4 +6,5 @@
 secrets.yml
 .kitchen/
 .kitchen.local.yml
-Dockerfile*
+Dockerfile
+*.cache
