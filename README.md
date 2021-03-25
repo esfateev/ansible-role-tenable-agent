@@ -20,8 +20,7 @@ None.
 
 ## Example Playbook
 
-
-## Simple usecase
+## Simple use case
 
 ```yaml
 - hosts: all
@@ -35,7 +34,7 @@ None.
      - role: ansible-role-nessus-agent
 ```
 
-## Advanced usecase
+## Advanced use case
 
 ```yaml
 - hosts: all
@@ -49,7 +48,7 @@ None.
       default: accept
       plugin_reject:
         - 33851
-      
+
   roles:
      - role: ansible-role-nessus-agent
 ```
