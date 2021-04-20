@@ -30,7 +30,7 @@ nessus_agent_port: '443'
 nessus_agent_key: ''
 # The agent group, it could be "Group1, Group2, Group3,..."
 nessus_agent_group: 'Default'
-# Deprecated
-nessus_manage: True
-# Deprecated
-nessus_install: True
+# tbd
+nessus_install_dir: /opt/nessus_agent/
+nessus_agent_path: /opt/nessus_agent/sbin/nessuscli
+nessus_agent_rules: {}

@@ -1,0 +1,33 @@
+########################################################################################################################
+# Nessus rules
+## Ref: https://community.tenable.com/s/article/What-is-the-Nessus-rules-file
+########################################################################################################################
+
+## Plugin Syntax: plugin-accept|plugin-reject id[-id_max] ##############################################################
+{% if nessus_agent_rules.plugin_reject is defined %}
+{% for item in nessus_agent_rules.plugin_reject %}
+plugin-reject {{ item }}
+{% endfor %}
+{% endif %}
+{% if nessus_agent_rules.plugin_accept is defined %}
+{% for item in nessus_agent_rules.plugin_accept %}
+plugin-accept {{ item }}
+{% endfor %}
+{% endif %}
+
+## Target Syntax: accept|reject address/netmask:port[-port_max] ########################################################
+{% if nessus_agent_rules.reject is defined %}
+{% for item in nessus_agent_rules.reject %}
+reject {{ item }}
+{% endfor %}
+{% endif %}
+{% if nessus_agent_rules.accept is defined %}
+{% for item in nessus_agent_rules.accept %}
+accept {{ item }}
+{% endfor %}
+{% endif %}
+
+## Default Rule Syntax (if no other rules apply): default accept|reject ################################################
+{% if nessus_agent_rules.default is defined%}
+{{ nessus_agent_rules.default }}
+{% endif %}
